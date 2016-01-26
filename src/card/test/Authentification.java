@@ -10,6 +10,12 @@ public class Authentification {
 		auchan.transferUsers("ClientsList.txt");
 		auchan.createAccount();
 		auchan.writing("ClientsList.txt");
+
+		/*
+		//Test de Commit!
+		//
+		*/
+
 		/*Scanner sc = new Scanner(System.in); // exception avec le system in ?
 		String str = new String();
 		do {
