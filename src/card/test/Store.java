@@ -25,6 +25,19 @@ public class Store {
 
 	public int addUser() {
 		User e = new User();
+        boolean test = false;
+        do {
+            for (int j = 0; j < getListUsers().size(); j++) {
+                if (getListUsers().get(j).getLogin().equals(e.getLogin())) {
+                    test = true;
+                    System.out.println("Ce login existe déjà, veuillez en choisir un autre.");
+                    e.scanLogin();
+                }
+                else{
+                    test = false;
+                }
+            }
+        }while(test);
 		this.listUsers.add(e);
 		e.printUserDetails();
         return(e.getId());

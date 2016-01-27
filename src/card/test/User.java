@@ -52,10 +52,16 @@ public class User {
 		System.out.println("Quelle carte choississez vous ? Tapez b pour Basique, e pour Etudiant, p pour Professionnel, f pour Famille. ");
 		Scanner scan = new Scanner(System.in);
 		String str = new String();
+        int i = 0;
 		while(!str.equals("b") && !str.equals("e") && !str.equals("p") && !str.equals("f")){
-			str = scan.nextLine();
+            if (i != 0){
+                System.out.println("Veuillez taper 'b', 'e', 'p' ou 'f'");
+            }
+            str = scan.nextLine();
+            i++;
 		}
-		this.typeOfCard=str;		
+		this.typeOfCard=str;
+
 	}
 
 	public void printUserDetails() {
