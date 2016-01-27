@@ -51,7 +51,7 @@ public class User {
 		System.out.println(" - la carte Famille : si vous êtes parents, chaque enfant vous donne 2% de réduction immédiate ");
 		System.out.println("Quelle carte choississez vous ? Tapez b pour Basique, e pour Etudiant, p pour Professionnel, f pour Famille. ");
 		Scanner scan = new Scanner(System.in);
-		String str;
+		String str = new String();
 		while(!str.equals("b") && !str.equals("e") && !str.equals("p") && !str.equals("f")){
 			str = scan.nextLine();
 		}

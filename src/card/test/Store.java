@@ -180,7 +180,7 @@ public class Store {
 
     public String reading(String fileName) { // read the file
         BufferedReader details;
-        String temp;
+        String temp = new String();
         try {
             details = new BufferedReader(new FileReader(fileName));
             while (details.ready()) {
