@@ -5,38 +5,50 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Store {
-	private ArrayList<User> list;
+
+	private ArrayList<User> listUsers;
+    private ArrayList<StoreDepartment> listDepartement;
+    String name;
+
 
 	public Store() {
-		list = new ArrayList<User>();
+		listUsers = new ArrayList<User>();
 	}
+
+    public Store(String name){
+        setName(name);
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
 
 	public int addUser() {
 		User e = new User();
-		this.list.add(e);
+		this.listUsers.add(e);
 		return e.getId();
 	}
 
 	public void printListOfUsers() {
 		int i = 0;
-		while (this.list.size() != i) {
+		while (this.listUsers.size() != i) {
 			System.out.print("Name : ");
-			System.out.println(getList().get(i).getName());
+			System.out.println(getListUsers().get(i).getName());
 			System.out.print("Surname : ");
-			System.out.println(getList().get(i).getSurname());
+			System.out.println(getListUsers().get(i).getSurname());
 			System.out.print("Id : ");
-			System.out.println(getList().get(i).getId());
+			System.out.println(getListUsers().get(i).getId());
 			System.out.println("\n");
 			i++;
 		}
 	}
 
-	public ArrayList<User> getList() {
-		return list;
+	public ArrayList<User> getListUsers() {
+		return listUsers;
 	}
 
-	public void setList(ArrayList<User> list) {
-		this.list = list;
+	public void setListUsers(ArrayList<User> listUsers) {
+		this.listUsers = listUsers;
 	}
 
 	public void login() {
@@ -52,8 +64,8 @@ public class Store {
 			String login = scan.nextLine();
 			System.out.print("Mot de passe :");
 			String password = scan.nextLine();
-			for (int j = 0; j < getList().size(); j++) {
-				if (getList().get(j).getLogin().equals(login)) { // on parcourt
+			for (int j = 0; j < getListUsers().size(); j++) {
+				if (getListUsers().get(j).getLogin().equals(login)) { // on parcourt
 																	// la liste
 																	// d'users
 																	// pour voir
@@ -63,7 +75,7 @@ public class Store {
 																	// correspond
 																	// au login
 																	// d'un user
-					if (getList().get(j).getPassword().equals(password)) {
+					if (getListUsers().get(j).getPassword().equals(password)) {
 						test = true;
 					}
 				}
@@ -77,7 +89,7 @@ public class Store {
 
 	public void createAccount() { // A CHANGER !!! addUser instancie a 1 et quand on import un fichier ça instancie pas
 		int num = addUser();
-		getList().get(num).printUserDetails();
+		getListUsers().get(num).printUserDetails();
 		System.out.println("Vous pouvez maintenant vous connecter ! \n");
 		login();
 	}
@@ -85,38 +97,104 @@ public class Store {
 	public void transferUsers(String namefile) {
 		String containFile = reading(namefile);
 		String[] tempo1;
-		String[] tempo2;
+		String[] tempo2 = null;
+
 		tempo1 = containFile.split(";");
 		for (String tempo11 : tempo1) {
 			System.out.println(tempo11);
-			tempo2 = null;
 			tempo2 = tempo11.split("/");
 			User temp = new User(tempo2[0], tempo2[1], tempo2[2], tempo2[3]);
-			getList().add(temp);
+			getListUsers().add(temp);
 		}
-		System.out.println(getList().get(1).getLogin());
+		System.out.println(getListUsers().get(1).getLogin());
 	}
 
-	public String reading(String fileName) { // read the file
-		BufferedReader details;
-		String temp = new String();
-		try {
-			details = new BufferedReader(new FileReader(fileName));
-			while (details.ready() == true) {
-				temp += details.readLine();
-			}// end while
-		}// end try
+    public String[] transferDepartment(String nameStore){
+        String containFile = reading(nameStore);
+        String[] tempo1;
 
-		catch (NullPointerException a) {
-			System.out.println("Erreur : pointeur null");
-		}// end catch
+        tempo1 = containFile.split(";");
+        return tempo1;
+    }
 
-		catch (IOException a) {
-			System.out.println("Problème d'IO");
-		}// end catch
+    public String[] transferProducts(String nameStoreDepartment){
+        String containFile = reading(nameStoreDepartment);
+        String[] tempo1;
 
-		return temp;
-	}
+        tempo1 = containFile.split(";");
+        return tempo1;
+    }
+
+    public void choiceDepartment(String nameStore){
+        String [] tempo=transferDepartment(nameStore);
+
+        int i=0;
+
+        System.out.println("Choose your Store Department : (tape the number in front of your choice then ENTER");
+        for (String aTempo1 : tempo) {
+            System.out.println(i + " : " + aTempo1);
+            i++;
+        }
+
+        Scanner scan =new Scanner(System.in);
+        int tempo1 = scan.nextInt();
+
+        while(tempo1<0 || tempo1>tempo.length) {
+            System.out.println("Wrong choice, retry please : ");
+            tempo1 = scan.nextInt();
+        }
+        StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
+    }
+
+    public Product choiceProduct(String nameStoreDepartment){
+        String [] tempo=transferProducts(nameStoreDepartment);
+        String[] tempo2 = tempo;
+        int i=0;
+
+        System.out.println("Choose your Product : (tape the number in front of your choice then ENTER");
+        for (String aTempo1 : tempo) {
+            tempo =aTempo1.split("/");
+            System.out.println(i + " : " + tempo[0]);
+            i++;
+        }
+
+        Scanner scan =new Scanner(System.in);
+        int tempo1 = scan.nextInt();
+
+        while(tempo1<0 || tempo1>tempo.length) {
+            System.out.println("Wrong choice, retry please : ");
+            tempo1 = scan.nextInt();
+        }
+
+        tempo =tempo2[tempo1].split("/");
+        if(tempo[3].charAt(0) == 'p'){
+           // PieceProduct product = new PieceProduct(tempo[0],Float.parseFloat(tempo[1]), Integer.valueOf(tempo[2]));
+           // return (product);
+        }
+
+
+    }
+
+    public String reading(String fileName) { // read the file
+        BufferedReader details;
+        String temp = new String();
+        try {
+            details = new BufferedReader(new FileReader(fileName));
+            while (details.ready() == true) {
+                temp += details.readLine();
+            }// end while
+        }// end try
+
+        catch (NullPointerException a) {
+            System.out.println("Erreur : pointeur null");
+        }// end catch
+
+        catch (IOException a) {
+            System.out.println("Problème d'IO");
+        }// end catch
+
+        return temp;
+    }
 
 	public void writing(String fileName)
 			throws IOException {
@@ -126,7 +204,7 @@ public class Store {
 		FileWriter writer = new FileWriter(fileName, false)
 		// end try
 		) {
-			for (User text1 : getList()) { // for each
+			for (User text1 : getListUsers()) { // for each
 				details = null;
 				details = text1.getName() + "/";
 				details = details + text1.getSurname() + "/";

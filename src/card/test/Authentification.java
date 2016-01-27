@@ -6,15 +6,9 @@ import java.io.*;
 public class Authentification {
 
 	public static void main(String[] args) throws IOException {
-		Store auchan = new Store();
-		auchan.transferUsers("ClientsList.txt");
-		auchan.createAccount();
-		auchan.writing("ClientsList.txt");
-
-		/*
-		//Test de Commit!
-		//
-		*/
+		Store auchan=new Store();
+		auchan.choiceDepartment("StoreDepartment.txt");
+		auchan.choiceProduct("Produits Frais.txt");
 
 		/*Scanner sc = new Scanner(System.in); // exception avec le system in ?
 		String str = new String();
