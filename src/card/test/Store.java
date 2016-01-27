@@ -12,7 +12,7 @@ public class Store {
 
 
 	public Store() {
-		listUsers = new ArrayList<User>();
+		listUsers = new ArrayList<>();
 	}
 
     public Store(String name){
@@ -26,7 +26,8 @@ public class Store {
 	public int addUser() {
 		User e = new User();
 		this.listUsers.add(e);
-		return e.getId();
+		e.printUserDetails();
+        return(e.getId());
 	}
 
 	public void printListOfUsers() {
@@ -51,12 +52,13 @@ public class Store {
 		this.listUsers = listUsers;
 	}
 
-	public void login() {
+	public int login() {
 		Scanner scan = new Scanner(System.in); // exception avec le system in ?
 		// scan.close(); A VOIR AVEC LE PROF
 		int i = 0;
+        int id = 0;
 		boolean test = false;
-		while (test != true) {
+		while (!test) {
 			if (i != 0) {
 				System.out.println("Identifiant ou mot de passe erroné\n");
 			}
@@ -76,6 +78,7 @@ public class Store {
 																	// au login
 																	// d'un user
 					if (getListUsers().get(j).getPassword().equals(password)) {
+						id = getListUsers().get(j).getId();
 						test = true;
 					}
 				}
@@ -84,14 +87,15 @@ public class Store {
 			i++;
 		}
 		System.out.println("Vous êtes connecté !\n");
-
+        System.out.println(id);
+        return id;
 	}
 
-	public void createAccount() { // A CHANGER !!! addUser instancie a 1 et quand on import un fichier ça instancie pas
-		int num = addUser();
-		getListUsers().get(num).printUserDetails();
+	public int createAccount() {
+		int id = addUser();
 		System.out.println("Vous pouvez maintenant vous connecter ! \n");
 		login();
+        return id;
 	}
 
 	public void transferUsers(String namefile) {
@@ -106,7 +110,6 @@ public class Store {
 			User temp = new User(tempo2[0], tempo2[1], tempo2[2], tempo2[3]);
 			getListUsers().add(temp);
 		}
-		System.out.println(getListUsers().get(1).getLogin());
 	}
 
     public String[] transferDepartment(String nameStore){
@@ -146,7 +149,7 @@ public class Store {
         StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
     }
 
-    public Product choiceProduct(String nameStoreDepartment){
+    /*public Product choiceProduct(String nameStoreDepartment){
         String [] tempo=transferProducts(nameStoreDepartment);
         String[] tempo2 = tempo;
         int i=0;
@@ -173,14 +176,14 @@ public class Store {
         }
 
 
-    }
+    }*/
 
     public String reading(String fileName) { // read the file
         BufferedReader details;
-        String temp = new String();
+        String temp;
         try {
             details = new BufferedReader(new FileReader(fileName));
-            while (details.ready() == true) {
+            while (details.ready()) {
                 temp += details.readLine();
             }// end while
         }// end try
@@ -210,8 +213,8 @@ public class Store {
 				details = details + text1.getSurname() + "/";
 				details = details + text1.getLogin() + "/";
 				details = details + text1.getPassword() + "/";
-				int temp = text1.getCardNumber();
-				details = details + (temp + "") + ";" + "\n"; // int vers string
+				//int temp = text1.getCardNumber();   On en a plus besoin non ??
+				//details = details + (temp + "") + ";" + "\n"; // int vers string
 
 				writer.write(details, 0, details.length()); // write in the file
 			}

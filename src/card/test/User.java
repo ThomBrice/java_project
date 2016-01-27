@@ -9,7 +9,7 @@ public class User {
 	private String password;
 	private String typeOfCard;
 	private int cardNumber;
-	private int id = 0;
+	private int id;
 	private static int numberOfUsers = 0;
 
 	public User() { // calculer cardnumebr
@@ -17,10 +17,10 @@ public class User {
 		scanSurname();
 		scanLogin();
 		scanPassword();
-		System.out.println("\n");
 		numberOfUsers++;
 		setId(numberOfUsers - 1);
-		scanTypeOfCard();
+        System.out.print("\n");
+        scanTypeOfCard();
 		int ascii=0;
         for(int i=0; i<login.length();i++){
         	ascii =ascii + login.charAt(i);
@@ -33,6 +33,8 @@ public class User {
 		setSurname(surname);
 		setLogin(login);
 		setPassword(password);
+        numberOfUsers++;
+        setId(numberOfUsers - 1);
 		int ascii=0;
         for(int i=0; i<login.length();i++){
         	ascii =ascii + login.charAt(i);
@@ -49,7 +51,7 @@ public class User {
 		System.out.println(" - la carte Famille : si vous êtes parents, chaque enfant vous donne 2% de réduction immédiate ");
 		System.out.println("Quelle carte choississez vous ? Tapez b pour Basique, e pour Etudiant, p pour Professionnel, f pour Famille. ");
 		Scanner scan = new Scanner(System.in);
-		String str = new String();
+		String str;
 		while(!str.equals("b") && !str.equals("e") && !str.equals("p") && !str.equals("f")){
 			str = scan.nextLine();
 		}
