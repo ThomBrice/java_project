@@ -100,7 +100,6 @@ public class Store {
 			i++;
 		}
 		System.out.println("Vous êtes connecté !\n");
-        System.out.println(id);
         return id;
 	}
 
@@ -141,7 +140,7 @@ public class Store {
         return tempo1;
     }
 
-    public void choiceDepartment(String nameStore){
+    public StoreDepartment choiceDepartment(String nameStore){
         String [] tempo=transferDepartment(nameStore);
 
         int i=0;
@@ -160,36 +159,64 @@ public class Store {
             tempo1 = scan.nextInt();
         }
         StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
+		return (Dep);
     }
 
-    /*public Product choiceProduct(String nameStoreDepartment){
-        String [] tempo=transferProducts(nameStoreDepartment);
-        String[] tempo2 = tempo;
-        int i=0;
+    public InterfaceProduct choiceProduct(String nameStoreDepartment){
+        String [] listProduits=transferProducts(nameStoreDepartment);
+		String [] detailProduit=null;
+        int i=0,number=0;
 
         System.out.println("Choose your Product : (tape the number in front of your choice then ENTER");
-        for (String aTempo1 : tempo) {
-            tempo =aTempo1.split("/");
-            System.out.println(i + " : " + tempo[0]);
+        for (String aTempo1 : listProduits) {
+            detailProduit =aTempo1.split("/");
+            System.out.print(i + " : " + detailProduit[0] + "  ");
+			if(detailProduit[2].charAt(0) == 'p' ){
+				System.out.println(detailProduit[1] + "€ la Piéce");
+			}
+			if(detailProduit[2].charAt(0) == 'w' ){
+				System.out.println(detailProduit[1] + "€ le kilo");
+			}
             i++;
         }
 
         Scanner scan =new Scanner(System.in);
-        int tempo1 = scan.nextInt();
+        int choice = scan.nextInt();
 
-        while(tempo1<0 || tempo1>tempo.length) {
+        while(choice<0 || choice>listProduits.length) {
             System.out.println("Wrong choice, retry please : ");
-            tempo1 = scan.nextInt();
+            choice = scan.nextInt();
         }
 
-        tempo =tempo2[tempo1].split("/");
-        if(tempo[3].charAt(0) == 'p'){
-           // PieceProduct product = new PieceProduct(tempo[0],Float.parseFloat(tempo[1]), Integer.valueOf(tempo[2]));
-           // return (product);
-        }
+		detailProduit=listProduits[choice].split("/");
 
+		InterfaceProduct defaultProduct = null;
 
-    }*/
+        if(detailProduit[2].charAt(0) == 'p'){
+			PieceProduct product = new PieceProduct();
+			product.setName(detailProduit[0]);
+			product.setPrice(Float.parseFloat(detailProduit[1]));
+			return (product);
+	    }
+		if(detailProduit[2].charAt(0) == 'w'){
+			WeightProduct product = new WeightProduct();
+			product.setName(detailProduit[0]);
+			product.setPrice(Float.parseFloat(detailProduit[1]));
+			return (product);
+		}
+
+		return (defaultProduct);
+	}
+
+	public void AddToBasket (InterfaceProduct product, ShoppingBasket basket){
+		Scanner scan = new Scanner(System.in);
+
+		product.quantityChoice();
+		int choice = scan.nextInt();
+		product.setNb(choice);
+		basket.addProduct(choice,product);
+
+	}
 
     public String reading(String fileName) { // read the file
         BufferedReader details;
@@ -225,7 +252,7 @@ public class Store {
 				details = text1.getName() + "/";
 				details = details + text1.getSurname() + "/";
 				details = details + text1.getLogin() + "/";
-				details = details + text1.getPassword() + "/";
+				details = details + text1.getPassword() + ";" + "\n";
 				//int temp = text1.getCardNumber();   On en a plus besoin non ??
 				//details = details + (temp + "") + ";" + "\n"; // int vers string
 

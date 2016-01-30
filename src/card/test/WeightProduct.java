@@ -1,20 +1,20 @@
 package card.test;
 
 /**
- * Created by isen on 27/01/2016.
+ * Created by isen on 30/01/2016.
  */
-public class PieceProduct  implements InterfaceProduct {
+public class WeightProduct  implements InterfaceProduct {
 
     private String name;
     private Float price;
     private int nb;
 
     public void print(){
-        System.out.println(getName()+ " " + getPrice() +"€ l'unité");
+        System.out.println(getName()+ " " + getPrice() +"€ le kilo");
     }
 
     public void quantityChoice(){
-        System.out.println("How many do you want ?");
+        System.out.println("How many Kilogrammes do you want ?");
     }
 
     public String getName() {
