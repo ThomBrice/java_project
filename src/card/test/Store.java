@@ -145,7 +145,7 @@ public class Store {
 
         int i=0;
 
-        System.out.println("Choose your Store Department : (tape the number in front of your choice then ENTER");
+        System.out.println("Choisissez votre rayon : (Tapez le nombre puis Entrée)");
         for (String aTempo1 : tempo) {
             System.out.println(i + " : " + aTempo1);
             i++;
@@ -155,7 +155,7 @@ public class Store {
         int tempo1 = scan.nextInt();
 
         while(tempo1<0 || tempo1>tempo.length) {
-            System.out.println("Wrong choice, retry please : ");
+            System.out.println("Mauvais choix, recommencez : ");
             tempo1 = scan.nextInt();
         }
         StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
@@ -167,7 +167,7 @@ public class Store {
 		String [] detailProduit=null;
         int i=0,number=0;
 
-        System.out.println("Choose your Product : (tape the number in front of your choice then ENTER");
+        System.out.println("Choisissez votre produit : (Tapez le nombre puis Entrée)");
         for (String aTempo1 : listProduits) {
             detailProduit =aTempo1.split("/");
             System.out.print(i + " : " + detailProduit[0] + "  ");
@@ -184,7 +184,7 @@ public class Store {
         int choice = scan.nextInt();
 
         while(choice<0 || choice>listProduits.length) {
-            System.out.println("Wrong choice, retry please : ");
+            System.out.println("Mauvais choix, recommencez : : ");
             choice = scan.nextInt();
         }
 

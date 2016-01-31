@@ -14,7 +14,7 @@ public class WeightProduct  implements InterfaceProduct {
     }
 
     public void quantityChoice(){
-        System.out.println("How many Kilogrammes do you want ?");
+        System.out.println("Combien de kilogrammes voulez vous ?");
     }
 
     public String getName() {

@@ -14,7 +14,7 @@ public class PieceProduct  implements InterfaceProduct {
     }
 
     public void quantityChoice(){
-        System.out.println("How many do you want ?");
+        System.out.println("Combien en voulez vous ?");
     }
 
     public String getName() {
