@@ -96,7 +96,7 @@ public class Store {
 					}
 				}
 			}
-
+////
 			i++;
 		}
 		System.out.println("Vous êtes connecté !\n");
