@@ -1,0 +1,13 @@
+Produits Frais;
+Fruits & Légumes;
+Viandes & Poissons;
+Pains & Pâtisseries;
+Epicerie Sucrée;
+Epicerie Salée;
+Boissons & Cave;
+Surgelés;
+L'Univers du Bébé;
+Hygiène & Beauté;
+Entretien & Maison;
+Animalierie;
+Textile & Loisirs;
