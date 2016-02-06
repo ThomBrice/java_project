@@ -38,16 +38,28 @@ public class Authentification {
             switch (str) { // insérer exception ici
                 case "1": {
 					do {
-						StoreDepartment Dep;
-						Dep = store.choiceDepartment("StoreDepartment.txt");
-						prod = store.choiceProduct(Dep.getName() + ".txt");
-						store.AddToBasket(prod, basket);
 						secondMenu();
 						str = sc.nextLine();
-						if (str.equals("2")) {
-							basket.print();
+						switch (str) {
+							case "1": {
+								StoreDepartment Dep;
+								Dep = store.choiceDepartment("StoreDepartment.txt");
+								prod = store.choiceProduct(Dep.getName() + ".txt");
+								store.AddToBasket(prod, basket);
+								break;
+							}
+							case "2": {
+								basket.print();
+								break;
+							}
+							case "3": {
+								break;
+							}
+							default: {
+								System.out.println("Erreur, veuillez réessayer \n");
+							}
 						}
-					}while(str.equals("1"));
+					}while(!str.equals("3"));
                     break;
                 }
                 case "2": {
@@ -96,8 +108,9 @@ public class Authentification {
 	public static void secondMenu(){
 		System.out.println("==========================================");
 		System.out.println("============== Voulez vous : =============");
-		System.out.println("======= 1 : continuez vos achats ? =======");
+		System.out.println("========= 1 : choisir le rayon ? =========");
 		System.out.println("========= 2 : voir votre panier ? ========");
+		System.out.println("========= 3 : régler vos achats ? ========");
 		System.out.println("==========================================");
 		System.out.print(" 1..2 ? ");
 	}

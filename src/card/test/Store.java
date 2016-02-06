@@ -2,6 +2,7 @@ package card.test;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Store {
@@ -127,7 +128,6 @@ public class Store {
     public String[] transferDepartment(String nameStore){
         String containFile = reading(nameStore);
         String[] tempo1;
-
         tempo1 = containFile.split(";");
         return tempo1;
     }
@@ -152,13 +152,28 @@ public class Store {
         }
 
         Scanner scan =new Scanner(System.in);
-        int tempo1 = scan.nextInt();
+        //int tempo1 = scan.nextInt();
+		String tempo1 = scan.nextLine();
 
-        while(tempo1<0 || tempo1>tempo.length) {
-            System.out.println("Mauvais choix, recommencez : ");
-            tempo1 = scan.nextInt();
-        }
-        StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
+		boolean test = false;
+		int num=-1;
+        int j = 0;
+		while(!test) {
+			if (j>0){
+				System.out.println("Mauvais choix, recommencez : ");
+				tempo1 = scan.nextLine();
+			}
+			for (int k=0;k<tempo.length;k++){
+				if(tempo1.equals(Integer.toString(k))){
+					test=true;
+					num = new Integer(tempo1);
+				}
+			}
+			j++;
+		}
+		System.out.println(num);
+
+        StoreDepartment Dep = new StoreDepartment(tempo[num]);
 		return (Dep);
     }
 
@@ -181,14 +196,24 @@ public class Store {
         }
 
         Scanner scan =new Scanner(System.in);
-        int choice = scan.nextInt();
-
-        while(choice<0 || choice>listProduits.length) {
-            System.out.println("Mauvais choix, recommencez : : ");
-            choice = scan.nextInt();
+        String choice = scan.nextLine();
+        boolean test = false;
+        int num=-1;
+        int j = 0;
+        while(!test) {
+            if (j>0){
+                System.out.println("Mauvais choix, recommencez : ");
+                choice = scan.nextLine();
+            }
+            for (int k=0;k<listProduits.length;k++){
+                if(choice.equals(Integer.toString(k))){
+                    test=true;
+                    num = new Integer(choice);
+                }
+            }
+            j++;
         }
-
-		detailProduit=listProduits[choice].split("/");
+		detailProduit=listProduits[num].split("/");
 
 		InterfaceProduct defaultProduct = null;
 
@@ -210,11 +235,41 @@ public class Store {
 
 	public void AddToBasket (InterfaceProduct product, ShoppingBasket basket){
 		Scanner scan = new Scanner(System.in);
-
 		product.quantityChoice();
-		int choice = scan.nextInt();
-		product.setNb(choice);
-		basket.addProduct(choice,product);
+        String choice=scan.nextLine();
+        boolean test=false;
+        while(!test){
+            char c[]=choice.toCharArray();
+            if(c.length<4){
+                if((int)c[0]<58 && (int) c[0]>46){
+                    if(c.length>1){
+                        if((int)c[1]<58 && (int) c[1]>46){
+                            if(c.length>2) {
+                                if ((int) c[2] < 58 && (int) c[2] > 46) {
+                                    test = true;
+                                }
+                            }
+                            else{
+                                test=true;
+                            }
+                        }
+                    }
+                    else{
+                        test=true;
+                    }
+                }
+
+            }
+            if(!test){
+                System.out.println("Erreur, entrez un nombre");
+                choice=scan.nextLine();
+            }
+        }
+        int num = new Integer(choice);
+
+        product.setNb(num);
+        basket.addProduct(num,product);
+
 
 	}
 
