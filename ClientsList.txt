@@ -1,4 +1,3 @@
-Nicolas/Bock/TiBock1/mdp;
-Thomas/Brice/Thom/mdp2;
-nico/bock/nbck/lolol;
-Patrick/Dupuis/Patdup/azerty;
+Nicolas/Bock/nbck/lolol;
+Thomas/Brice/tbrice/mdp;
+Arnaud/Combeau/acombeau/mdp1;

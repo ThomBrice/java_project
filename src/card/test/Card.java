@@ -1,15 +1,15 @@
 package card.test;
 
 public abstract class Card {
-	protected int id;
+	protected int cardNumber;
 	protected double advantage;
 
-	public int getId() {
-		return id;
+	public int getCardNumber() {
+		return cardNumber;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCardNumber(int id) {
+		this.cardNumber = id;
 	}
 
 	public double getAdvantage() {
@@ -19,4 +19,6 @@ public abstract class Card {
 	public void setAdvantage(double advantage) {
 		this.advantage = advantage;
 	}
+
+	abstract void printCardDetails();
 }

@@ -12,8 +12,10 @@ public class Authentification {
 		ShoppingBasket basket = new ShoppingBasket();
 	    Scanner sc = new Scanner(System.in); // exception avec le system in ?
         String str;
-
 		store.transferUsers("ClientsList.txt");
+		store.transferCards("CardsList.txt");
+
+
         do {
             starts();
             str = sc.nextLine();
@@ -64,6 +66,7 @@ public class Authentification {
                 }
                 case "2": {
                     store.getListUsers().get(id).printUserDetails();
+					store.getListOfCards().get(store.findCard(store.getListUsers().get(id).getCardNumber())).printCardDetails();
                     break;
                 }
                 case "3": {
@@ -76,6 +79,7 @@ public class Authentification {
             }
         } while (!str.equals("3"));
         store.writing("ClientsList.txt");
+		store.writingCardsFile("CardsList.txt");
         sc.close();
     }
 

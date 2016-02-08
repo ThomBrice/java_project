@@ -7,7 +7,6 @@ public class User {
 	private String surname;
 	private String login;
 	private String password;
-	private String typeOfCard;
 	private int cardNumber;
 	private int id;
 	private static int numberOfUsers = 0;
@@ -20,14 +19,13 @@ public class User {
 		numberOfUsers++;
 		setId(numberOfUsers - 1);
         System.out.print("\n");
-        scanTypeOfCard();
 		int ascii=0;
         for(int i=0; i<login.length();i++){
         	ascii =ascii + login.charAt(i);
         }
 		setCardNumber(ascii);
 	}
-	
+
 	public User(String name, String surname, String login, String password){ // calculer cardnumber !!
 		setName(name);
 		setSurname(surname);
@@ -42,57 +40,17 @@ public class User {
 		setCardNumber(ascii);
 	}
 
-	public void scanTypeOfCard() {
-		System.out.println("Veuillez choisir votre carte de fidélité.  ");
-		System.out.println("4 types de carte sont disponibles : ");
-		System.out.println(" - la carte Basique : 5% du total de votre facture est crédité sur votre compte ");
-		System.out.println(" - la carte Etudiant : vous bénéficiez de 10% de réduction lorsque que vous payez sur tous les produits ");
-		System.out.println(" - la carte Professionnels : la TVA vous est offerte, soit 20% de réduction immédiate sur tous les produits ");
-		System.out.println(" - la carte Famille : si vous êtes parents, chaque enfant vous donne 2% de réduction immédiate ");
-		System.out.println("Quelle carte choississez vous ? Tapez b pour Basique, e pour Etudiant, p pour Professionnel, f pour Famille. ");
-		Scanner scan = new Scanner(System.in);
-		String str = new String();
-        int i = 0;
-		while(!str.equals("b") && !str.equals("e") && !str.equals("p") && !str.equals("f")){
-            if (i != 0){
-                System.out.println("Veuillez taper 'b', 'e', 'p' ou 'f'");
-            }
-            str = scan.nextLine();
-            i++;
-		}
-		this.typeOfCard=str;
-
-	}
-
 	public void printUserDetails() {
 		System.out.println("Here is the details of your account \n");
-		System.out.print("Name : ");
+		System.out.print("Prénom : ");
 		System.out.println(getName());
-		System.out.print("Surname : ");
+		System.out.print("Nom : ");
 		System.out.println(getSurname());
-		/*switch(getTypeOfCard()){
-		case "b" : {
-			System.out.println("Vous avez la carte Basique.");
-			break;
-		}
-		case "e" : {
-			System.out.println("Vous avez la carte Etudiant.");
-			break;
-		}
-		case "p" : {
-			System.out.println("Vous avez la carte Professionnels.");
-			break;
-		}
-		case "f" : {
-			System.out.println("Vous avez la carte Famille.");
-			break;
-		}
-		}*/
-		System.out.print("Id : ");
+		System.out.print("Numéro de client : ");
 		System.out.println(getId());
-		System.out.print("Login : ");
+		System.out.print("Identifiant : ");
 		System.out.println(getLogin());
-		System.out.print("Password : ");
+		System.out.print("Mot de passe : ");
 		System.out.println(getPassword());
 		System.out.println("\n");
 	}
@@ -166,14 +124,6 @@ public class User {
 		return numberOfUsers;
 	}
 
-	public String getTypeOfCard() {
-		return typeOfCard;
-	}
-
-	public void setTypeOfCard(String typeOfCard) {
-		this.typeOfCard = typeOfCard;
-	}
-
 	public int getCardNumber() {
 		return cardNumber;
 	}
@@ -181,5 +131,4 @@ public class User {
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-
 }
