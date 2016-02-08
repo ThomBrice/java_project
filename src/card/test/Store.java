@@ -57,6 +57,22 @@ public class Store {
         return index;
     }
 
+    public void printCardDetails(int id){
+        getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).printCardDetails();
+    }
+
+    public double getUserCardAdvantage(int id){
+        return getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).getAdvantage();
+    }
+
+    public double getUserCardBalance(int id){
+        return ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).getBalance();
+    }
+
+    public void setUserCardBalance(int id, double balance){
+        ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).setBalance(balance);
+    }
+
 	public void printListOfUsers() {
 		int i = 0;
 		while (this.listUsers.size() != i) {

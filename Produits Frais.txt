@@ -1,4 +1,0 @@
-Lait/1.5/p;
-Oeufs/0.2/p;
-Beurre/2.35/w;
-Margarine/3/w;

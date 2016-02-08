@@ -55,6 +55,36 @@ public class Authentification {
 								break;
 							}
 							case "3": {
+								store.getListOfCards().get(store.findCard(store.getListUsers().get(id).getCardNumber())).printCardDetails();
+								System.out.println("Voici votre facture : ");
+								basket.print();
+								if (store.getListOfCards().get(store.findCard(store.getListUsers().get(id).getCardNumber())) instanceof BasicCard){
+									System.out.println("Voulez-vous utiliser votre cagnotte ? Tapez o pour oui, n pour non : o/n ? ");
+									String s = sc.nextLine();
+									switch (s){
+										case "o" : {
+											System.out.println("===============================");
+											System.out.println("Montant après déduction de votre cagnotte : " + (basket.getPrice() - store.getUserCardBalance(id)) + "€");
+											store.setUserCardBalance(id, basket.getPrice()*store.getUserCardAdvantage(id));
+											System.out.println("Nouvelle cagnotte : " + store.getUserCardBalance(id) + " €");
+											System.out.println("\nMerci de vos achats, Au revoir !");
+											break;
+										}
+										case "n" : {
+											System.out.println("===============================");
+											System.out.println("Montant total : " + basket.getPrice() + " €");
+                                            store.setUserCardBalance(id, store.getUserCardBalance(id) + basket.getPrice()*store.getUserCardAdvantage(id));
+                                            System.out.println("Nouvelle cagnotte : " + store.getUserCardBalance(id) + " €");
+											System.out.println("\nMerci de vos achats, Au revoir !");
+											break;
+										}
+									}
+								}
+								else {
+									System.out.println("===============================");
+									System.out.println("Montant après réduction : " + (basket.getPrice() - basket.getPrice() * 100) + "€");
+									System.out.println("\nMerci de vos achats, Au revoir !");
+								}
 								break;
 							}
 							default: {
@@ -66,7 +96,7 @@ public class Authentification {
                 }
                 case "2": {
                     store.getListUsers().get(id).printUserDetails();
-					store.getListOfCards().get(store.findCard(store.getListUsers().get(id).getCardNumber())).printCardDetails();
+					store.printCardDetails(id);
                     break;
                 }
                 case "3": {
