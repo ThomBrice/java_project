@@ -1,11 +1,19 @@
 package card.test;
 
 /**
- * Created by isen on 27/01/2016.
+ * La classe StoreDepartment représente un rayon du magasin
+ *
  */
 public class StoreDepartment {
+    /**
+     * Nom du rayon
+     */
     private String name;
 
+    /**
+     * Constructeur de la classe StoreDepartment
+     * @param dep : nom du rayon
+     */
     public StoreDepartment(String dep) {
         setName(dep);
     }

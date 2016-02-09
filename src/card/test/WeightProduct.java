@@ -1,23 +1,43 @@
 package card.test;
 
 /**
- * Created by isen on 30/01/2016.
+ * La classe WeightProduct représente un produit qui est vendu au kilogramme.
+ * Elle implémente l'interface InterfaceProduct.
  */
 public class WeightProduct  implements InterfaceProduct {
-
+    /**
+     * Nom du produit
+     */
     private String name;
+
+    /**
+     * Prix du produit
+     */
     private Float price;
+
+    /**
+     * Nombre de kilo choisi du produit.
+     */
     private int nb;
 
+    /**
+     * Affiche le prix du produit au kilo
+     * Override la méthode print() de l'InterfaceProduct
+     */
     @Override
     public void print(){
         System.out.println(getName()+ " " + getPrice() +"€ le kilo");
     }
 
+    /**
+     * Demande du nombre de kilo choisi
+     * Override la méthode quantityChoice() de l'InterfaceProduct
+     */
     @Override
     public void quantityChoice(){
         System.out.println("Combien de kilogrammes voulez vous ?");
     }
+
 
     public String getName() {
         return name;
@@ -28,7 +48,7 @@ public class WeightProduct  implements InterfaceProduct {
     }
 
     @Override
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 

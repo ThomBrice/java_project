@@ -52,7 +52,7 @@ public class Authentification {
 								StoreDepartment Dep;
 								Dep = store.choiceDepartment("StoreDepartment.txt");
 								prod = store.choiceProduct(Dep.getName() + ".txt");
-								store.AddToBasket(prod, basket);
+								store.addToBasket(prod, basket);
 								break;
 							}
 							case "2": {

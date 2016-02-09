@@ -27,11 +27,23 @@ public class Store {
 	 */
 	private ArrayList<Card> listOfCards;
 
+	/**
+	 * Constructeur de la classe Store.
+	 * Lorsque le constructeur est appele, les listes listUsers et listOfcards sont initialisées.
+	 */
 	public Store() {
 		listUsers = new ArrayList<>();
 		listOfCards = new ArrayList<>();
 	}
 
+	/**
+	 * Méthode appelee lors de la creation d'un nouveau compte.
+	 * Cette methode cree un utilisateur, en vérifiant si l'identifiant choisi n'existe pas déjà.
+	 * Elle appelle aussi la methode createCard() qui crée une carte de fidelite associee.
+	 * Une fois le compte cree, les détails sont affiches.
+	 * Et les nouvels objets User et Card sont ajoutés respectivement dans les listes listUsers et listOfCards.
+	 * @return L'id de l'utilisateur qui a ete ajoute.
+     */
 	public int addUser() {
 		User e = new User();
         boolean test = false;
@@ -54,6 +66,12 @@ public class Store {
         return(e.getId());
 	}
 
+	/**
+	 * Cette méthode prend en paramètre un numéro de carte de fidelité et renvoie la position de la carte correspondante dans la liste listOfCards.
+	 *
+	 * @param num : le numéro de carte de fidélité
+	 * @return la position de la carte correspondante dans la liste listOfCards
+     */
     public int findCard(int num){
         int index=0;
         for(int i = 0; i<getListOfCards().size(); i++){
@@ -64,48 +82,55 @@ public class Store {
         return index;
     }
 
+	/**
+	 * Affiche le détail de la carte de fidélité de l'utilisateur ayant l'id passé en paramètre.
+	 * @param id id de l'utilisateur dont on veut le détail de la carte de fidelité
+     */
     public void printCardDetails(int id){
-		System.out.println(getListUsers().get(id).getCardNumber());
         getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).printCardDetails();
     }
 
+	/**
+	 * Renvoie l'avantage client qu'un utilisateur a grâce à sa carte de fidelité
+	 * @param id : id de l'utilisateur
+	 * @return l'avantage client de l'utilisateur.
+     */
     public double getUserCardAdvantage(int id){
         return getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).getAdvantage();
     }
 
+	/**
+	 * Renvoie le montant de la cagnotte d'un utlisateur ayant une carte de fidélité basique.
+	 * @param id : id de l'utilisateur
+	 * @return la cagnotte de l'utilisateur.
+	 */
     public double getUserCardBalance(int id){
         return ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).getBalance();
     }
 
+	/**
+	 * Méthode qui modifie la valeur de la cagnotte d'un client
+	 * @param id : l'id du client voulu
+	 * @param balance : la nouvelle cagnotte du client
+     */
     public void setUserCardBalance(int id, double balance){
         ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).setBalance(balance);
     }
 
-	public void printListOfUsers() {
-		int i = 0;
-		while (this.listUsers.size() != i) {
-			System.out.print("Name : ");
-			System.out.println(getListUsers().get(i).getName());
-			System.out.print("Surname : ");
-			System.out.println(getListUsers().get(i).getSurname());
-			System.out.print("Id : ");
-			System.out.println(getListUsers().get(i).getId());
-			System.out.println("\n");
-			i++;
-		}
-	}
-
+	/**
+	 * getter de listUsers
+	 * @return
+     */
 	public ArrayList<User> getListUsers() {
 		return listUsers;
 	}
 
-	public void setListUsers(ArrayList<User> listUsers) {
-		this.listUsers = listUsers;
-	}
-
+	/**
+	 * Méthode permettant de se connecter grâce un identifiant et un mot de passe.
+	 * @return l'id du client connecté
+     */
 	public int login() {
 		Scanner scan = new Scanner(System.in); // exception avec le system in ?
-		// scan.close(); A VOIR AVEC LE PROF
 		int i = 0;
         int id = 0;
 		boolean test = false;
@@ -126,7 +151,8 @@ public class Store {
 																	// login
 																	// entré
 																	// correspond
-																	// au login
+
+																							// au login
 																	// d'un user
 					if (getListUsers().get(j).getPassword().equals(password)) {
 						id = getListUsers().get(j).getId();
@@ -141,6 +167,10 @@ public class Store {
         return id;
 	}
 
+	/**
+	 * Méthode de création d'un nouveau compte, appell de la méthode addUser();
+	 * @return l'id du client créé
+     */
 	public int createAccount() {
 		int id = addUser();
 		System.out.println("Vous pouvez maintenant vous connecter ! \n");
@@ -148,6 +178,11 @@ public class Store {
         return id;
 	}
 
+	/**
+	 * Méthode qui transfert les utilisateurs stockés dans un fichier txt dans la liste listUsers;
+	 * Appel de la méthode readingFiles()
+	 * @param namefile    : nom du fichier txt
+     */
 	public void transferUsersFromFiles(String namefile) {
 		String containFile = readingFiles(namefile);
 		String[] tempo1;
@@ -161,6 +196,11 @@ public class Store {
 		}
 	}
 
+	/**
+	 * Méthode qui renvoie un tableau de string dans lesquelles sont contenus les noms des rayons.
+	 * @param nameStore nom du fichier où sont stockés les noms des rayons
+	 * @return tableau de string, chaque string du tableau contient le nom d'un rayon
+     */
     public String[] transferDepartmentFromFiles(String nameStore){
         String containFile = readingFiles(nameStore);
         String[] tempo1;
@@ -168,6 +208,11 @@ public class Store {
         return tempo1;
     }
 
+	/**
+	 * Méthode qui renvoie un tableau de string contenant les noms des produits d'un rayon particulier.
+	 * @param nameStoreDepartment : nom du fichier où sont stockés les noms des produits et leur prix.
+	 * @return tableau de string
+     */
     public String[] transferProductsFromFiles(String nameStoreDepartment){
         String containFile = readingFiles(nameStoreDepartment);
         String[] tempo1;
@@ -176,6 +221,12 @@ public class Store {
         return tempo1;
     }
 
+	/**
+	 * Méthode qui permet à l'utilisateur de choisir dans quel rayon il veut aller.
+	 * Une liste de rayons s'affiche, et l'utilisateur choisit.
+	 * @param nameStore nom du fichier où sont stockés les noms des rayons
+	 * @return un objet représentant le rayon choisi
+     */
     public StoreDepartment choiceDepartment(String nameStore){
         String [] tempo= transferDepartmentFromFiles(nameStore);
 
@@ -188,7 +239,6 @@ public class Store {
         }
 
         Scanner scan =new Scanner(System.in);
-        //int tempo1 = scan.nextInt();
 		String tempo1 = scan.nextLine();
 
 		boolean test = false;
@@ -213,6 +263,12 @@ public class Store {
 		return (Dep);
     }
 
+	/**
+	 * Méthode qui permet à l'utilisateur de choisir un produit.
+	 * Après avoir choisi le rayon, les produits du rayon s'affiche et l'utilisateur peut choisir.
+	 * @param nameStoreDepartment nom du fichier contenant le noms des produits.
+	 * @return le produit choisi
+     */
     public InterfaceProduct choiceProduct(String nameStoreDepartment){
         String [] listProduits= transferProductsFromFiles(nameStoreDepartment);
 		String [] detailProduit=null;
@@ -269,7 +325,13 @@ public class Store {
 		return (defaultProduct);
 	}
 
-	public void AddToBasket (InterfaceProduct product, ShoppingBasket basket){
+	/**
+	 * Méthode qui permet l'ajout d'un produit choisi par l'ulisateur à son panier.
+	 * Choix du nombre de produit à ajouter au panier.
+	 * @param product : produit choisi par l'utilisateur
+	 * @param basket : panier de l'utilisateur
+     */
+	public void addToBasket(InterfaceProduct product, ShoppingBasket basket){
 		Scanner scan = new Scanner(System.in);
 		product.quantityChoice();
         String choice=scan.nextLine();
@@ -282,6 +344,7 @@ public class Store {
                         if((int)c[1]<58 && (int) c[1]>46){
                             if(c.length>2) {
                                 if ((int) c[2] < 58 && (int) c[2] > 46) {
+
                                     test = true;
                                 }
                             }
@@ -309,6 +372,11 @@ public class Store {
 
 	}
 
+	/**
+	 * Méthode qui permet la lecture d'un fichier .txt donné
+	 * @param fileName : nom du fichier .txt
+	 * @return une string contenant tout le fichier .txt
+     */
     public String readingFiles(String fileName) { // read the file
         BufferedReader details;
         String temp = new String();
@@ -330,6 +398,12 @@ public class Store {
         return temp;
     }
 
+	/**
+	 * Méthode permettant l'écriture de la liste listUsers dans un fichier .txt
+	 * Elle sert à sauvegarder la liste des comptes créés.
+	 * @param fileName : nom du fichier .txt
+	 * @throws IOException
+     */
 	public void writingUsersFiles(String fileName)
 			throws IOException {
 		String details = null;
@@ -356,6 +430,12 @@ public class Store {
 		}
 	}
 
+	/**
+	 * Méthode permettant l'écriture de la liste listOfCards dans un fichier .txt
+	 * Elle sert à sauvegarder la liste des cartes de fidélité créées.
+	 * @param fileName : nom du fichier .txt
+	 * @throws IOException
+	 */
     public void writingCardsFile(String fileName)
             throws IOException {
         String details = null;
@@ -390,10 +470,20 @@ public class Store {
         }
     }
 
+	/**
+	 * getter de listOfCards
+	 * @return
+     */
 	public ArrayList<Card> getListOfCards() {
 		return listOfCards;
 	}
 
+	/**
+	 * Méthode permettant la création d'une carte de fidélité.
+	 * Elle est appelée lors de la création d'un nouveau compte.
+	 * Elle affiche toutes les cartes de fidélité possibles et décrit les différents avantages.
+	 * @param cardNum : numéro de carte
+     */
 	public void createCard(int cardNum) {
 		System.out.println("Veuillez choisir votre carte de fidélité.  ");
 		System.out.println("4 types de carte sont disponibles : ");
@@ -464,10 +554,11 @@ public class Store {
 
 	}
 
-	public void setListOfCards(ArrayList<Card> listOfCards) {
-		this.listOfCards = listOfCards;
-	}
-
+	/**
+	 * Méthode qui transfert les cartes stockées dans un fichier txt dans la liste listOfCards;
+	 * Appel de la méthode readingFiles()
+	 * @param namefile
+     */
 	public void transferCardsFromFiles(String namefile) {
 		String containFile = readingFiles(namefile);
 		String[] tempo1;

@@ -1,19 +1,38 @@
 package card.test;
 
 /**
- * Created by isen on 27/01/2016.
+ * La classe PieceProduct représente un produit qui est vendu à la pièce.
+ * Elle implémente l'interface InterfaceProduct.
  */
 public class PieceProduct  implements InterfaceProduct {
-
+    /**
+     * Nom du produit
+     */
     private String name;
+
+    /**
+     * Prix du produit
+     */
     private Float price;
+
+    /**
+     * Nombre de produit choisi
+     */
     private int nb;
 
+    /**
+     * Affiche le prix du produit à l'unité
+     * Override la méthode print() de l'InterfaceProduct
+     */
     @Override
     public void print(){
         System.out.println(getName()+ " " + getPrice() +"€ l'unité");
     }
 
+    /**
+     * Demande le nombre de produit voulu
+     * Override la méthode quantityChoice() de l'InterfaceProduct
+     */
     @Override
     public void quantityChoice(){
         System.out.println("Combien en voulez vous ?");
@@ -28,7 +47,7 @@ public class PieceProduct  implements InterfaceProduct {
     }
 
     @Override
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 

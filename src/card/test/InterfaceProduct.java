@@ -1,12 +1,19 @@
 package card.test;
 
 /**
- * Created by isen on 27/01/2016.
+ * Interface qui représente un produit.
+ *
  */
 public interface InterfaceProduct {
-
+    /**
+     * méthode d'affichage du produit
+     */
     void print();
-    Float getPrice();
+    float getPrice();
+
+    /**
+     * Demande la quantité d'un produit
+     */
     void quantityChoice();
     int getNb();
     void setNb(int nb);
