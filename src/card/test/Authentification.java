@@ -82,7 +82,7 @@ public class Authentification {
 								}
 								else {
 									System.out.println("===============================");
-									System.out.println("Montant après réduction : " + (basket.getPrice() - basket.getPrice() * 100) + "€");
+									System.out.println("Montant après réduction : " + (basket.getPrice() - basket.getPrice() * store.getUserCardAdvantage(id)) + "€");
 									System.out.println("\nMerci de vos achats, Au revoir !");
 								}
 								break;

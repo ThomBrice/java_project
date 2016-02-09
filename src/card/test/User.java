@@ -56,25 +56,25 @@ public class User {
 	}
 
 	public void scanName() {
-		System.out.print("name : ");
+		System.out.print("Prénom : ");
 		Scanner scan = new Scanner(System.in);
 		this.name = scan.nextLine();
 	}
 
 	public void scanSurname() {
-		System.out.print("surname : ");
+		System.out.print("Nom : ");
 		Scanner scan = new Scanner(System.in);
 		this.surname = scan.nextLine();
 	}
 
 	public void scanLogin() {
-		System.out.print("login : ");
+		System.out.print("Identifiant : ");
 		Scanner scan = new Scanner(System.in);
 		this.login = scan.nextLine();
 	}
 
 	public void scanPassword() {
-		System.out.print("password : ");
+		System.out.print("Mot de passe : ");
 		Scanner scan = new Scanner(System.in);
 		this.password = scan.nextLine();
 	}
