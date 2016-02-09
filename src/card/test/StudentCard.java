@@ -4,7 +4,7 @@ package card.test;
  * La classe StudentCard représente une carte de fidélité pour étudiant
  * Elle hérite de la classe abstraite Card
  *
- * Une carte de fidélité étudiante donne un avantage de 5% par enfant.
+ * Une carte de fidélité étudiante donne un avantage de 10%.
  * Cet avantage est immédiatement déduit sur la facture.
  */
 public class StudentCard extends Card {

@@ -1,5 +1,7 @@
 package card.test;
 
+import java.text.DecimalFormat;
+
 /**
  * La classe BasicCard représente une carte de fidélité basique
  * Elle hérite de la classe abstraite Card
@@ -13,6 +15,8 @@ public class BasicCard extends Card {
 	 * Cagnotte de la carte basique.
 	 */
 	private double balance;
+
+	DecimalFormat df = new DecimalFormat("0.00");
 
 	/**
 	 * Constructeur 1 de la classe BasicCard
@@ -45,7 +49,7 @@ public class BasicCard extends Card {
 	public void printCardDetails(){
 		System.out.println("\nVous avez la carte de fidelité basique.");
 		System.out.println("Lors de chaque achat, 5% du montant de la facture vont sur la cagnote de votre carte.");
-		System.out.println("Vous avez : " + getBalance() + "euros sur votre carte. \n");
+		System.out.println("Vous avez : " + df.format(getBalance()) + "euros sur votre carte. \n");
 	}
 
 	public double getBalance() {
