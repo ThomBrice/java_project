@@ -1,26 +1,25 @@
 package card.test;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.io.*;
 
 public class Authentification {
 
 	public static void main(String[] args) throws IOException {
+		DecimalFormat df = new DecimalFormat("0.00"); // for decimal format
 		Store store = new Store();
 		int id = 0;
-		InterfaceProduct prod;
-		ShoppingBasket basket = new ShoppingBasket();
-	    Scanner sc = new Scanner(System.in); // exception avec le system in ?
+		InterfaceProduct prod; // on crée un produit
+		ShoppingBasket basket = new ShoppingBasket(); // on crée un panier
+	    Scanner sc = new Scanner(System.in);
         String str;
 		store.transferUsers("ClientsList.txt");
 		store.transferCards("CardsList.txt");
-
-
         do {
             starts();
             str = sc.nextLine();
-            //je ne sais pas pq ya un pb ? ?
-            switch (str) { // insérer exception ici
+            switch (str) {
                 case "1": {
                     id = store.login();
                     break;
@@ -37,7 +36,7 @@ public class Authentification {
         do {
             mainMenu();
             str = sc.nextLine();
-            switch (str) { // insérer exception ici
+            switch (str) {
                 case "1": {
 					do {
 						secondMenu();
@@ -64,9 +63,9 @@ public class Authentification {
 									switch (s){
 										case "o" : {
 											System.out.println("===============================");
-											System.out.println("Montant après déduction de votre cagnotte : " + (basket.getPrice() - store.getUserCardBalance(id)) + "€");
+											System.out.println("Montant après déduction de votre cagnotte : " + df.format(basket.getPrice() - store.getUserCardBalance(id)) + "€");
 											store.setUserCardBalance(id, basket.getPrice()*store.getUserCardAdvantage(id));
-											System.out.println("Nouvelle cagnotte : " + store.getUserCardBalance(id) + " €");
+											System.out.println("Nouvelle cagnotte : " +  df.format(store.getUserCardBalance(id)) + " €");
 											System.out.println("\nMerci de vos achats, Au revoir !");
 											break;
 										}
@@ -74,7 +73,7 @@ public class Authentification {
 											System.out.println("===============================");
 											System.out.println("Montant total : " + basket.getPrice() + " €");
                                             store.setUserCardBalance(id, store.getUserCardBalance(id) + basket.getPrice()*store.getUserCardAdvantage(id));
-                                            System.out.println("Nouvelle cagnotte : " + store.getUserCardBalance(id) + " €");
+											System.out.println("Nouvelle cagnotte : " + df.format(store.getUserCardBalance(id)) + "€");
 											System.out.println("\nMerci de vos achats, Au revoir !");
 											break;
 										}
@@ -82,7 +81,7 @@ public class Authentification {
 								}
 								else {
 									System.out.println("===============================");
-									System.out.println("Montant après réduction : " + (basket.getPrice() - basket.getPrice() * store.getUserCardAdvantage(id)) + "€");
+									System.out.println("Montant après réduction : " + df.format(basket.getPrice() - basket.getPrice() * store.getUserCardAdvantage(id)) + "€");
 									System.out.println("\nMerci de vos achats, Au revoir !");
 								}
 								break;
@@ -113,10 +112,7 @@ public class Authentification {
         sc.close();
     }
 
-
-	public static void starts() { // voir si on met en place une machine d'état
-		// pour pouvoir se déco et reco avec autre
-		// compte
+	public static void starts() {
 		System.out.println("===============================");
 		System.out.println("==== Bonjour cher client ! ====");
 		System.out.println("===============================");
@@ -146,6 +142,6 @@ public class Authentification {
 		System.out.println("========= 2 : voir votre panier ? ========");
 		System.out.println("========= 3 : régler vos achats ? ========");
 		System.out.println("==========================================");
-		System.out.print(" 1..2 ? ");
+		System.out.print(" 1..3 ? ");
 	}
 }

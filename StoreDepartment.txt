@@ -1,13 +1,7 @@
 Produits Frais;
-Fruits & Légumes;
+Fruits & LÃ©gumes;
 Viandes & Poissons;
-Pains & Pâtisseries;
-Epicerie Sucrée;
-Epicerie Salée;
+Pains & PÃ¢tisseries;
+Epicerie SucrÃ©e;
+Epicerie SalÃ©e;
 Boissons & Cave;
-Surgelés;
-L'Univers du Bébé;
-Hygiène & Beauté;
-Entretien & Maison;
-Animalierie;
-Textile & Loisirs;

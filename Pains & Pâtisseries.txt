@@ -1,0 +1,4 @@
+Pavé saveur(500g)/1.57/p;
+Baguette/0.79/p;
+Pain burger(x6)/1.29/p;
+Galettes de riz(120g)/0.97/p;

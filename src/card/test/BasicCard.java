@@ -10,6 +10,7 @@ public class BasicCard extends Card {
 	}
 
 	public BasicCard(int cardNum, double bal) {
+		setCardNumber(cardNum);
 		setBalance(bal);
 		setAdvantage(0.05);
 	}

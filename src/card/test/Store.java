@@ -50,7 +50,7 @@ public class Store {
     public int findCard(int num){
         int index=0;
         for(int i = 0; i<getListOfCards().size(); i++){
-            if (getListOfCards().get(i).getCardNumber()==num){
+            if (getListOfCards().get(i).getCardNumber()== num){
                 index=i;
             }
         }
@@ -58,6 +58,7 @@ public class Store {
     }
 
     public void printCardDetails(int id){
+		System.out.println(getListUsers().get(id).getCardNumber());
         getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).printCardDetails();
     }
 

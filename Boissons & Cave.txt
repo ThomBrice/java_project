@@ -1,0 +1,3 @@
+Lait(1L)/0.76/p;
+Jus d'orange(2L)/2.70/p;
+Eau(1L)/0.24/p;
