@@ -480,7 +480,6 @@ public class Store {
 					break;
 				}
 				case "e": {
-					System.out.println("Ecrivez le nom de votre école");
 					Card c = new StudentCard(Integer.parseInt(tempo2[1]), tempo2[2]);
 					getListOfCards().add(c);
 					break;
