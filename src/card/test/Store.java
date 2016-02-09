@@ -257,9 +257,7 @@ public class Store {
 			}
 			j++;
 		}
-		System.out.println(num);
-
-        StoreDepartment Dep = new StoreDepartment(tempo[num]);
+		StoreDepartment Dep = new StoreDepartment(tempo[num]);
 		return (Dep);
     }
 
@@ -384,7 +382,7 @@ public class Store {
             details = new BufferedReader(new FileReader(fileName));
             while (details.ready()) {
                 temp += details.readLine();
-            }// end while
+            }
         }// end try
 
         catch (NullPointerException a) {
