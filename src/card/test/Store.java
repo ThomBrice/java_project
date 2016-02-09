@@ -8,11 +8,13 @@ public class Store {
 
 	private ArrayList<User> listUsers;
     private ArrayList<StoreDepartment> listDepartement;
+	private ArrayList<Card> listOfCards;
     String name;
 
 
 	public Store() {
 		listUsers = new ArrayList<>();
+		listOfCards = new ArrayList<>();
 	}
 
     public Store(String name){
@@ -38,10 +40,38 @@ public class Store {
                 }
             }
         }while(test);
+		scanTypeOfCard(e.getCardNumber());
 		this.listUsers.add(e);
 		e.printUserDetails();
+        this.listOfCards.get(findCard(e.getCardNumber())).printCardDetails();
         return(e.getId());
 	}
+
+    public int findCard(int num){
+        int index=0;
+        for(int i = 0; i<getListOfCards().size(); i++){
+            if (getListOfCards().get(i).getCardNumber()==num){
+                index=i;
+            }
+        }
+        return index;
+    }
+
+    public void printCardDetails(int id){
+        getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).printCardDetails();
+    }
+
+    public double getUserCardAdvantage(int id){
+        return getListOfCards().get(findCard(getListUsers().get(id).getCardNumber())).getAdvantage();
+    }
+
+    public double getUserCardBalance(int id){
+        return ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).getBalance();
+    }
+
+    public void setUserCardBalance(int id, double balance){
+        ((BasicCard) getListOfCards().get(findCard(getListUsers().get(id).getCardNumber()))).setBalance(balance);
+    }
 
 	public void printListOfUsers() {
 		int i = 0;
@@ -127,7 +157,6 @@ public class Store {
     public String[] transferDepartment(String nameStore){
         String containFile = reading(nameStore);
         String[] tempo1;
-
         tempo1 = containFile.split(";");
         return tempo1;
     }
@@ -152,13 +181,28 @@ public class Store {
         }
 
         Scanner scan =new Scanner(System.in);
-        int tempo1 = scan.nextInt();
+        //int tempo1 = scan.nextInt();
+		String tempo1 = scan.nextLine();
 
-        while(tempo1<0 || tempo1>tempo.length) {
-            System.out.println("Mauvais choix, recommencez : ");
-            tempo1 = scan.nextInt();
-        }
-        StoreDepartment Dep = new StoreDepartment(tempo[tempo1]);
+		boolean test = false;
+		int num=-1;
+        int j = 0;
+		while(!test) {
+			if (j>0){
+				System.out.println("Mauvais choix, recommencez : ");
+				tempo1 = scan.nextLine();
+			}
+			for (int k=0;k<tempo.length;k++){
+				if(tempo1.equals(Integer.toString(k))){
+					test=true;
+					num = new Integer(tempo1);
+				}
+			}
+			j++;
+		}
+		System.out.println(num);
+
+        StoreDepartment Dep = new StoreDepartment(tempo[num]);
 		return (Dep);
     }
 
@@ -181,14 +225,24 @@ public class Store {
         }
 
         Scanner scan =new Scanner(System.in);
-        int choice = scan.nextInt();
-
-        while(choice<0 || choice>listProduits.length) {
-            System.out.println("Mauvais choix, recommencez : : ");
-            choice = scan.nextInt();
+        String choice = scan.nextLine();
+        boolean test = false;
+        int num=-1;
+        int j = 0;
+        while(!test) {
+            if (j>0){
+                System.out.println("Mauvais choix, recommencez : ");
+                choice = scan.nextLine();
+            }
+            for (int k=0;k<listProduits.length;k++){
+                if(choice.equals(Integer.toString(k))){
+                    test=true;
+                    num = new Integer(choice);
+                }
+            }
+            j++;
         }
-
-		detailProduit=listProduits[choice].split("/");
+		detailProduit=listProduits[num].split("/");
 
 		InterfaceProduct defaultProduct = null;
 
@@ -210,11 +264,41 @@ public class Store {
 
 	public void AddToBasket (InterfaceProduct product, ShoppingBasket basket){
 		Scanner scan = new Scanner(System.in);
-
 		product.quantityChoice();
-		int choice = scan.nextInt();
-		product.setNb(choice);
-		basket.addProduct(choice,product);
+        String choice=scan.nextLine();
+        boolean test=false;
+        while(!test){
+            char c[]=choice.toCharArray();
+            if(c.length<4){
+                if((int)c[0]<58 && (int) c[0]>46){
+                    if(c.length>1){
+                        if((int)c[1]<58 && (int) c[1]>46){
+                            if(c.length>2) {
+                                if ((int) c[2] < 58 && (int) c[2] > 46) {
+                                    test = true;
+                                }
+                            }
+                            else{
+                                test=true;
+                            }
+                        }
+                    }
+                    else{
+                        test=true;
+                    }
+                }
+
+            }
+            if(!test){
+                System.out.println("Erreur, entrez un nombre");
+                choice=scan.nextLine();
+            }
+        }
+        int num = new Integer(choice);
+
+        product.setNb(num);
+        basket.addProduct(num,product);
+
 
 	}
 
@@ -268,4 +352,153 @@ public class Store {
 		}
 	}
 
+    public void writingCardsFile(String fileName)
+            throws IOException {
+        String details = null;
+        try (
+                // write at the end of the file
+                FileWriter writer = new FileWriter(fileName, false)
+                // end try
+        ) {
+            for (Card text1 : getListOfCards()) { // for each
+                details = null;
+                if (text1 instanceof BasicCard){
+                    details = "b/" + text1.getCardNumber() + "/" + ((BasicCard) text1).getBalance() + ";";
+                }
+                if (text1 instanceof StudentCard){
+                    details = "e/" + text1.getCardNumber() + "/" + ((StudentCard) text1).getSchoolName() + ";";
+                }
+                if (text1 instanceof BusinessCard){
+                    details = "p/" + text1.getCardNumber() + "/" + ((BusinessCard) text1).getCompanyName() + ";";
+                }
+                if (text1 instanceof FamilyCard){
+                    details = "f/" + text1.getCardNumber() + "/" + ((FamilyCard) text1).getNumberOfChild() + ";";
+                }
+                writer.write(details, 0, details.length()); // write in the file
+            }
+
+        }// end try
+        catch (NullPointerException a) {
+            System.out.println("Erreur : pointeur null");
+        }// end catch
+        catch (IOException a) {
+            System.out.println("Problème d'IO");
+        }
+    }
+
+	public ArrayList<Card> getListOfCards() {
+		return listOfCards;
+	}
+
+	public void scanTypeOfCard(int cardNum) {
+		System.out.println("Veuillez choisir votre carte de fidélité.  ");
+		System.out.println("4 types de carte sont disponibles : ");
+		System.out.println(" - la carte Basique : 5% du total de votre facture est crédité sur votre compte ");
+		System.out.println(" - la carte Etudiant : vous bénéficiez de 10% de réduction lorsque que vous payez sur tous les produits ");
+		System.out.println(" - la carte Professionnels : la TVA vous est offerte, soit 20% de réduction immédiate sur tous les produits ");
+		System.out.println(" - la carte Famille : si vous êtes parents, chaque enfant vous donne 2% de réduction immédiate ");
+		System.out.println("Quelle carte choississez vous ? Tapez b pour Basique, e pour Etudiant, p pour Professionnel, f pour Famille. ");
+		Scanner scan = new Scanner(System.in);
+		String str = new String();
+		int i = 0;
+		while(!str.equals("b") && !str.equals("e") && !str.equals("p") && !str.equals("f")){
+			if (i != 0){
+				System.out.println("Veuillez taper 'b', 'e', 'p' ou 'f'");
+			}
+			str = scan.nextLine();
+			i++;
+		}
+		switch(str) {
+			case "b": {
+				Card c = new BasicCard(cardNum);
+				this.listOfCards.add(c);
+				break;
+			}
+			case "e": {
+				System.out.println("Ecrivez le nom de votre école");
+				str = scan.nextLine();
+				Card c = new StudentCard(cardNum, str);
+				this.listOfCards.add(c);
+				break;
+			}
+			case "p" : {
+				System.out.println("Ecrivez le nom de votre entreprise");
+				str = scan.nextLine();
+				Card c = new BusinessCard(cardNum, str);
+				this.listOfCards.add(c);
+				break;
+			}
+			case "f" : {
+				System.out.println("Combien d'enfants avez-vous ? (Max : 9)");
+				str = scan.nextLine();
+				boolean test=false;
+				while(!test) {
+					char chr[] = str.toCharArray();
+					if (chr.length < 2) {
+						if ((int) chr[0] < 58 && (int) chr[0] > 46) {
+							test = true;
+							if((int) chr[0] <= 50){
+								System.out.println("La carte Famille n'est intéressante qu'à partir de 3 enfants.");
+								System.out.println("Une carte de fidélité basique vous sera attribuée.");
+								Card c = new BasicCard(cardNum);
+								this.listOfCards.add(c);
+							}
+							else{
+								Card c = new FamilyCard(cardNum,Integer.parseInt(str));
+								this.listOfCards.add(c);
+							}
+						}
+					}
+					if (!test) {
+						System.out.println("Erreur, entrez un nombre");
+						str = scan.nextLine();
+					}
+				}
+				break;
+			}
+		}
+
+	}
+
+	public void setListOfCards(ArrayList<Card> listOfCards) {
+		this.listOfCards = listOfCards;
+	}
+
+	public void transferCards(String namefile) {
+		String containFile = reading(namefile);
+		String[] tempo1;
+		String[] tempo2 = null;
+
+		tempo1 = containFile.split(";");
+		for (String tempo11 : tempo1) {
+			System.out.println(tempo11);
+			tempo2 = tempo11.split("/");
+			switch(tempo2[0]){
+				case "b": {
+					Card c = new BasicCard(Integer.parseInt(tempo2[1]), Double.parseDouble(tempo2[2]));
+					getListOfCards().add(c);
+					break;
+				}
+				case "e": {
+					System.out.println("Ecrivez le nom de votre école");
+					Card c = new StudentCard(Integer.parseInt(tempo2[1]), tempo2[2]);
+					getListOfCards().add(c);
+					break;
+				}
+				case "p" : {
+					Card c = new BusinessCard(Integer.parseInt(tempo2[1]), tempo2[2]);
+					getListOfCards().add(c);
+					break;
+				}
+				case "f" : {
+					Card c = new FamilyCard(Integer.parseInt(tempo2[1]), Integer.parseInt(tempo2[2]));
+					getListOfCards().add(c);
+					break;
+				}
+				default : {
+					System.out.print("Erreur lecture ficher");
+				}
+			}
+		}
+	}
 }

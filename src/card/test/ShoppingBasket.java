@@ -1,6 +1,5 @@
 package card.test;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -16,9 +15,9 @@ public class ShoppingBasket {
     }
 
     public void addProduct(int nb, InterfaceProduct product){
-        nbArticle+=nb;
+        setNbArticle(getNbArticle() + nb);
         this.products.add(product);
-        price+=(nb*product.getPrice());
+        setPrice(getPrice() + (nb*product.getPrice()));
     }
 
     public void print(){
@@ -27,8 +26,23 @@ public class ShoppingBasket {
             System.out.print(aTempo1.getNb() + " ");
             aTempo1.print();
         }
-        System.out.println("total amount : " + String.format("%.2f",price)+"€"); // arrondie le prix à 2 chiffres aprés la virgule
+        System.out.println("Montant Total : " + String.format("%.2f", getPrice())+"€"); // arrondie le prix à 2 chiffres aprés la virgule
         System.out.println("");
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public int getNbArticle() {
+        return nbArticle;
+    }
+
+    public void setNbArticle(int nbArticle) {
+        this.nbArticle = nbArticle;
+    }
 }

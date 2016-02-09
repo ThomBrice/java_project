@@ -3,12 +3,16 @@ package card.test;
 public class BusinessCard extends Card {
 
 	private String companyName;
-	private String nSiret;
 
-	public BusinessCard(String company, String num) {
+	public BusinessCard(int cardNum, String company) {
 		setCompanyName(company);
-		setnSiret(num);
 		setAdvantage(0.2);
+		setCardNumber(cardNum);
+	}
+
+	public void printCardDetails(){
+		System.out.println("\nVous avez la carte de fidelité pour professionels.");
+		System.out.println("Lors de chaque achat, la TVA vous est déduite de la facture, soit 20%.\n");
 	}
 
 	public String getCompanyName() {
@@ -17,13 +21,5 @@ public class BusinessCard extends Card {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	public String getnSiret() {
-		return nSiret;
-	}
-
-	public void setnSiret(String nSiret) {
-		this.nSiret = nSiret;
 	}
 }
