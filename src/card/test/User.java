@@ -11,7 +11,7 @@ public class User {
 	private int id;
 	private static int numberOfUsers = 0;
 
-	public User() { // calculer cardnumebr
+	public User() {
 		scanName();
 		scanSurname();
 		scanLogin();

@@ -9,10 +9,12 @@ public class PieceProduct  implements InterfaceProduct {
     private Float price;
     private int nb;
 
+    @Override
     public void print(){
         System.out.println(getName()+ " " + getPrice() +"€ l'unité");
     }
 
+    @Override
     public void quantityChoice(){
         System.out.println("Combien en voulez vous ?");
     }
@@ -25,6 +27,7 @@ public class PieceProduct  implements InterfaceProduct {
         this.name = name;
     }
 
+    @Override
     public Float getPrice() {
         return price;
     }
@@ -33,10 +36,12 @@ public class PieceProduct  implements InterfaceProduct {
         this.price = price;
     }
 
+    @Override
     public int getNb() {
         return nb;
     }
 
+    @Override
     public void setNb(int nb) {
         this.nb = nb;
     }

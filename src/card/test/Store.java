@@ -4,26 +4,33 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * La classe Store représente le magasin.
+ * Le magasin comporte deux attributs :
+ * - une liste d'objet User, c'est-à-dire une liste d'utilisateur inscrit du magasin
+ * - une liste d'objet Card, c'est-à-dire la liste des cartes de fidélité de tous les utilisateurs inscrits du magasin.
+ *
+ * Les méthodes de cette classe vont
+ * - gérer la lecture et l'écriture dans les fichiers "CardsList.txt" et "ClientsList.txt"
+ * - gérer la connexion d'un utilisateur ou la création d'un nouveau compte
+ * - la navigation entre les rayons du magasin
+ * - l'ajout d'un produit au panier
+ */
 public class Store {
-
+	/**
+	 * 	C'est la liste d'objet User, chaque utilisateur inscrit du magasin y est référencé.
+	 *
+	 */
 	private ArrayList<User> listUsers;
-    private ArrayList<StoreDepartment> listDepartement;
+	/**
+	 * C'est la liste d'objet Card, chaque utilisateur a une carte de fidelité, toutes les cartes sont listées dans cette liste.
+	 */
 	private ArrayList<Card> listOfCards;
-    String name;
-
 
 	public Store() {
 		listUsers = new ArrayList<>();
 		listOfCards = new ArrayList<>();
 	}
-
-    public Store(String name){
-        setName(name);
-    }
-
-    public void setName(String name){
-        this.name=name;
-    }
 
 	public int addUser() {
 		User e = new User();
@@ -40,7 +47,7 @@ public class Store {
                 }
             }
         }while(test);
-		scanTypeOfCard(e.getCardNumber());
+		createCard(e.getCardNumber());
 		this.listUsers.add(e);
 		e.printUserDetails();
         this.listOfCards.get(findCard(e.getCardNumber())).printCardDetails();
@@ -141,29 +148,28 @@ public class Store {
         return id;
 	}
 
-	public void transferUsers(String namefile) {
-		String containFile = reading(namefile);
+	public void transferUsersFromFiles(String namefile) {
+		String containFile = readingFiles(namefile);
 		String[] tempo1;
 		String[] tempo2 = null;
 
 		tempo1 = containFile.split(";");
 		for (String tempo11 : tempo1) {
-			System.out.println(tempo11);
 			tempo2 = tempo11.split("/");
 			User temp = new User(tempo2[0], tempo2[1], tempo2[2], tempo2[3]);
 			getListUsers().add(temp);
 		}
 	}
 
-    public String[] transferDepartment(String nameStore){
-        String containFile = reading(nameStore);
+    public String[] transferDepartmentFromFiles(String nameStore){
+        String containFile = readingFiles(nameStore);
         String[] tempo1;
         tempo1 = containFile.split(";");
         return tempo1;
     }
 
-    public String[] transferProducts(String nameStoreDepartment){
-        String containFile = reading(nameStoreDepartment);
+    public String[] transferProductsFromFiles(String nameStoreDepartment){
+        String containFile = readingFiles(nameStoreDepartment);
         String[] tempo1;
 
         tempo1 = containFile.split(";");
@@ -171,7 +177,7 @@ public class Store {
     }
 
     public StoreDepartment choiceDepartment(String nameStore){
-        String [] tempo=transferDepartment(nameStore);
+        String [] tempo= transferDepartmentFromFiles(nameStore);
 
         int i=0;
 
@@ -208,7 +214,7 @@ public class Store {
     }
 
     public InterfaceProduct choiceProduct(String nameStoreDepartment){
-        String [] listProduits=transferProducts(nameStoreDepartment);
+        String [] listProduits= transferProductsFromFiles(nameStoreDepartment);
 		String [] detailProduit=null;
         int i=0,number=0;
 
@@ -303,7 +309,7 @@ public class Store {
 
 	}
 
-    public String reading(String fileName) { // read the file
+    public String readingFiles(String fileName) { // read the file
         BufferedReader details;
         String temp = new String();
         try {
@@ -324,7 +330,7 @@ public class Store {
         return temp;
     }
 
-	public void writing(String fileName)
+	public void writingUsersFiles(String fileName)
 			throws IOException {
 		String details = null;
 		try (
@@ -338,9 +344,6 @@ public class Store {
 				details = details + text1.getSurname() + "/";
 				details = details + text1.getLogin() + "/";
 				details = details + text1.getPassword() + ";" + "\n";
-				//int temp = text1.getCardNumber();   On en a plus besoin non ??
-				//details = details + (temp + "") + ";" + "\n"; // int vers string
-
 				writer.write(details, 0, details.length()); // write in the file
 			}
 
@@ -391,7 +394,7 @@ public class Store {
 		return listOfCards;
 	}
 
-	public void scanTypeOfCard(int cardNum) {
+	public void createCard(int cardNum) {
 		System.out.println("Veuillez choisir votre carte de fidélité.  ");
 		System.out.println("4 types de carte sont disponibles : ");
 		System.out.println(" - la carte Basique : 5% du total de votre facture est crédité sur votre compte ");
@@ -465,14 +468,13 @@ public class Store {
 		this.listOfCards = listOfCards;
 	}
 
-	public void transferCards(String namefile) {
-		String containFile = reading(namefile);
+	public void transferCardsFromFiles(String namefile) {
+		String containFile = readingFiles(namefile);
 		String[] tempo1;
 		String[] tempo2 = null;
 
 		tempo1 = containFile.split(";");
 		for (String tempo11 : tempo1) {
-			System.out.println(tempo11);
 			tempo2 = tempo11.split("/");
 			switch(tempo2[0]){
 				case "b": {

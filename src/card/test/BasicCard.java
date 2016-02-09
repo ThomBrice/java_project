@@ -15,6 +15,7 @@ public class BasicCard extends Card {
 		setAdvantage(0.05);
 	}
 
+	@Override
 	public void printCardDetails(){
 		System.out.println("\nVous avez la carte de fidelité basique.");
 		System.out.println("Lors de chaque achat, 5% du montant de la facture vont sur la cagnote de votre carte.");

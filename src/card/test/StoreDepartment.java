@@ -1,10 +1,5 @@
 package card.test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * Created by isen on 27/01/2016.
  */

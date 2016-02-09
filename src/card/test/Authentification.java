@@ -4,6 +4,12 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Authentification est la classe d'éxécution, elle contient la méthode main.
+ * L'interface utilisateur est gérée par la classe Authentification, 3 méthodes y sont d'ailleurs consacrées (starts(), mainMenu(), secondMenu()).
+ *
+ *@author Thomas BRICE & Nicolas BOCK
+ */
 public class Authentification {
 
 	public static void main(String[] args) throws IOException {
@@ -13,13 +19,13 @@ public class Authentification {
 		InterfaceProduct prod; // on crée un produit
 		ShoppingBasket basket = new ShoppingBasket(); // on crée un panier
 	    Scanner sc = new Scanner(System.in);
-        String str;
-		store.transferUsers("ClientsList.txt");
-		store.transferCards("CardsList.txt");
+        String entreeClavier;
+		store.transferUsersFromFiles("ClientsList.txt");
+		store.transferCardsFromFiles("CardsList.txt");
         do {
             starts();
-            str = sc.nextLine();
-            switch (str) {
+            entreeClavier = sc.nextLine();
+            switch (entreeClavier) {
                 case "1": {
                     id = store.login();
                     break;
@@ -32,16 +38,16 @@ public class Authentification {
                     System.out.println("Erreur, veuillez choisir '1' ou '2' \n");
                 }
             }
-        } while (!str.equals("1") && !str.equals("2"));
+        } while (!entreeClavier.equals("1") && !entreeClavier.equals("2"));
         do {
             mainMenu();
-            str = sc.nextLine();
-            switch (str) {
+            entreeClavier = sc.nextLine();
+            switch (entreeClavier) {
                 case "1": {
 					do {
 						secondMenu();
-						str = sc.nextLine();
-						switch (str) {
+						entreeClavier = sc.nextLine();
+						switch (entreeClavier) {
 							case "1": {
 								StoreDepartment Dep;
 								Dep = store.choiceDepartment("StoreDepartment.txt");
@@ -90,7 +96,7 @@ public class Authentification {
 								System.out.println("Erreur, veuillez réessayer \n");
 							}
 						}
-					}while(!str.equals("3"));
+					}while(!entreeClavier.equals("3"));
                     break;
                 }
                 case "2": {
@@ -104,14 +110,18 @@ public class Authentification {
                 }
                 default: {
                     System.out.println("Erreur, veuillez choisir un chiffre entre 1 et 3 \n");
+
                 }
             }
-        } while (!str.equals("3"));
-        store.writing("ClientsList.txt");
+        } while (!entreeClavier.equals("3"));
+        store.writingUsersFiles("ClientsList.txt");
 		store.writingCardsFile("CardsList.txt");
         sc.close();
     }
 
+	/**
+	 * Méthode qui affiche le premier menu, il propose à l'utilisateur de se connecter ou de créer un compte.
+	 */
 	public static void starts() {
 		System.out.println("===============================");
 		System.out.println("==== Bonjour cher client ! ====");
@@ -123,6 +133,12 @@ public class Authentification {
 		System.out.print(" 1/2 ? ");
 	}
 
+	/**
+	 * Méthode qui affiche de deuxième menu, il propose à l'utilisateur de :
+	 * - commencer ses achats
+	 * - voir les détails de son compte (Nom, prénom, indentifiant, mot de passe, type de carte de fidélité, etc).
+	 * - se déconnecter
+	 */
 	public static void mainMenu	() {
 		System.out.println("==========================================");
 		System.out.println("=================  MENU  =================");
@@ -135,6 +151,14 @@ public class Authentification {
 		System.out.print(" 1..3 ? ");
 	}
 
+	/**
+	 * Méthode qui affiche le menu permettant de :
+	 * - choisir le rayon
+	 * - voir son panier
+	 * - régler ses achats
+	 * Ce menu est affiché une fois que l'utilisateur à choisi l'option, "commencer vos achats" de la méthode mainMenu().
+	 *
+	 */
 	public static void secondMenu(){
 		System.out.println("==========================================");
 		System.out.println("============== Voulez vous : =============");

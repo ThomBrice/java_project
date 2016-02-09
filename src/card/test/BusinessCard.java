@@ -10,6 +10,7 @@ public class BusinessCard extends Card {
 		setCardNumber(cardNum);
 	}
 
+	@Override
 	public void printCardDetails(){
 		System.out.println("\nVous avez la carte de fidelité pour professionels.");
 		System.out.println("Lors de chaque achat, la TVA vous est déduite de la facture, soit 20%.\n");

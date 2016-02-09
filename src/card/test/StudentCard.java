@@ -9,6 +9,7 @@ public class StudentCard extends Card {
 		setCardNumber(cardNum);
 	}
 
+	@Override
 	public void printCardDetails(){
 		System.out.println("\nVous avez la carte de fidelité pour étudiant.");
 		System.out.println("Vous êtes étudiant à " + getSchoolName());

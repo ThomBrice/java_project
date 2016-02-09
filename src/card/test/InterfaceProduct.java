@@ -5,9 +5,9 @@ package card.test;
  */
 public interface InterfaceProduct {
 
-    public void print();
-    public Float getPrice();
-    public void quantityChoice();
-    public int getNb();
-    public void setNb(int nb);
+    void print();
+    Float getPrice();
+    void quantityChoice();
+    int getNb();
+    void setNb(int nb);
 }
